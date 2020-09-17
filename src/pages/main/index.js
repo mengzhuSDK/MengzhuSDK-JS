@@ -17,13 +17,13 @@ export default class Main extends React.Component {
 
     componentDidMount() {
         mzsdk.init({
-            ticketId: "10156860",
-            uniqueId: '2006058',
-            name: "HelloWorld",
-            avatar:"https://s1.zmengzhu.com/upload/img/4b/06/4b06539af8fd79a5e53717eff413cf0c.png",
+            ticketId: "填入活动ID",
+            uniqueId: '填入用户ID',
+            name: "填入用户昵称",
+            avatar:"填入用户头像",
             permision: {
-                id: "2020091618240648392",
-                key: "X9z0RzfiLuXXQBfTDsKWFYnOTiVj8rn7pPhJQuOMUaq3iBPieFZMBSFoLtXhvrFe"
+                id: "填入Appid",
+                key: "填入App Secret"
             }
         }).then(() => {
             //创建链接
