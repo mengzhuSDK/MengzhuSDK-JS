@@ -173,7 +173,7 @@ getFileInfo|FileId|根据文件id获取文件信息，返回值为图片数组
 
 名称|参数|描述
 --|--|--
-onChange|[Object]|接收聊天消息，字段说明见示例
+onChange|[Object]|直播时使用，改变当前文档。字段说明见示例
 
 ### 示例
 ```javascript
