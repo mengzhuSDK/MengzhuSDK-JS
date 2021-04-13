@@ -1,7 +1,7 @@
 # 盟主直播 JS-SDK
 ![npm version](https://img.shields.io/badge/npm-1.0.0-green.svg)
 
-盟主直播js-sdk，实现在网页中观看视频，与其它用户消息互动。
+盟主直播js-sdk，实现在网页中观看视频，与其它用户消息互动。SDK的目录在 src\utils 下。
 
 下载本工程后，请先执行npm install命令。
 
