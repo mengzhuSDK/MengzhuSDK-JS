@@ -13,8 +13,8 @@ let ticketId = "";
 // 是否展示log
 let isShowLog = false;
 // 用户信息
-let uniqueId = 'mengzhu_release';
-let name = "盟主User999_release";
+let uniqueId = 'mengzhu_release_sss';
+let name = "盟主User999_release_s";
 let avatar = "http://s1.dev.zmengzhu.com/upload/img/5b/c6/5bc6401a483360737cc6ca24f5bdc960.jpeg";
 let phone = "19912344321";
 
