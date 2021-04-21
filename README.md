@@ -1,9 +1,7 @@
 # 盟主直播 JS-SDK
 ![npm version](https://img.shields.io/badge/npm-1.0.0-green.svg)
 
-盟主直播js-sdk，实现在网页中观看视频，与其它用户消息互动。SDK的目录在 src\utils 下。
-
-下载本工程后，请先执行npm install命令。
+盟主直播js-sdk，实现在网页中观看视频，与其它用户消息互动。
 
 ## 引用方式
 
@@ -31,6 +29,8 @@ getOnlines|[Object]|获取在线观众列表, 传入参数{ticketId:活动编号
 getHostInfo|[Object]|获取主播信息, 传入参数{ticketId:活动编号}
 getWebinarToolsList|[Object]|获取活动的详细配置信息, 传入参数{ticketId:活动编号}
 useFCode|[Object]|若活动需要F码权限观看，调用使用F码, 传入参数{ticketId:活动编号, fCode:F码}
+getDiscussList|[Object]|获取该活动下所有的问答列表，传入参数{ticketId:活动编号, isNewReplay:是否查询最新未读回复 0:否 1:是, offset:偏移,当前已经获取的数据总个数, limit:请求的个数}
+submitDiscussQuestion|[Object]|提交问答问题，传入参数{ticketId:活动编号, content:问题, isAnonymous:是否匿名提问，字符串 0否 1是}
 
 ### 示例
 ```javascript
@@ -54,7 +54,27 @@ mzsdk.init({
     isShowLog: true
 }).then((res) => {
     console.log("返回的播放信息,包含活动的配置信息", res);
-
+        /* 播放信息
+            channel_id; // 频道ID
+            chat_uid; // 自己在聊天室里的id
+            cover; // 活动封面
+            status; // 直播状态 0:未开播 1:直播 2:回放 3:断流
+            live_type; // 直播类型 0:视频 1:语音
+            popular; // 活动pv
+            msg_config; // 消息监听配置
+            chat_config; // 聊天监听配置
+            like_num; // 用户点赞数量
+            live_style; // 直播样式 0:横屏 1:竖屏
+            unique_id;//第三方传递过来的唯一id
+            view_mode;// 观看权限 1:免费 2:vip 3:付费 4:密码  5:白名单观看 6:F码观看
+            ticket_id;//活动ID
+            user_status;// 用户状态 1:正常 2:被踢出 3:禁言
+            notice: {Object} // 公告内容
+            video: {Object} // 视频播放嫡长子
+            uv; // uv
+            webinar_onlines; // 进入频道的时候的总在线人数
+            right: [] // 活动配置
+        */
     //创建链接
     mzsdk.connect();
 
@@ -293,6 +313,9 @@ mzsdk.init({
                 case "*answerNewReplyMsg":
                     console.log("问答：我的提问有一条新的回复，目前未读个数为 ", res.data.count);
                     break;
+                case "*answerNewMsg": //有一新的问题（包括自己发的问题）
+                    console.log("问答：收到一新问题, 我自己提出的问题一共有：", res.data.count);
+                    break;
                 default:
                     console.log("未处理的cmd命令： ", res.data.type);
                     break;
@@ -398,4 +421,41 @@ mzsdk.init({
     });
     //其它操作...
 });
+```
+
+### 问答相关功能
+```javascript
+    //获取问答列表
+    var discussParam = {
+        ticketId: ticketId,//活动ID
+        isNewReply: 0,//是否查询有未读的回复， 0-不查询 1-查询
+        offset: 0,//偏移,当前已经返回的数据总个数
+        limit: 10//请求返回的列表个数
+    }
+    mzsdk.getDiscussList(discussParam).then(function (res) {
+        console.log("问答模块获取问题列表结果：", res);
+    }, function (error) {
+        console.log("问答模块获取问题列表结果失败：", error);
+    })
+
+    //提交问题
+    var _this = this;
+    var discussParam = {
+        ticketId: ticketId,//活动ID
+        content: _this.input.value,//提问的问题，不能为空
+        isAnonymous: '0'//是否匿名提问？ 0-否 1-是,必须字符串
+    }
+    mzsdk.submitDiscussQuestion(discussParam).then(function (res) {
+        console.log("问答模块提交问题结果：", res);
+    }, function (error) {
+        console.log("问答模块提交问题结果失败：", error);
+    })
+
+    //问答事件的监听 - 在initSDK里的 onCMD 回调里进行监听，具体可参考demo
+    case "*answerNewReplyMsg":
+        console.log("问答：我的提问有一条新的回复，目前未读个数为 ", res.data.count);
+        break;
+    case "*answerNewMsg": //有一新的问题（包括自己发的问题）
+        console.log("问答：收到一新问题, 我自己提出的问题一共有：", res.data.count);
+        break;
 ```

@@ -4,19 +4,20 @@ import mzsdk from '../../utils/mzsdk';
 import '../../utils/mzsdk.css';
 import ChatList from './components/ChatList';
 
-
+// 线上环境 --------------------
 // 盟主SDK的AppKey信息
 let id = "";
 let key = "";
-// 活动ID
-let ticketId = "";
 // 是否展示log
 let isShowLog = false;
+// 活动ID
+let ticketId = "";
 // 用户信息
-let uniqueId = 'mengzhu_release_sss';
-let name = "盟主User999_release_s";
+let uniqueId = 'mengzhu_releavvvvv';
+let name = "盟release";
 let avatar = "http://s1.dev.zmengzhu.com/upload/img/5b/c6/5bc6401a483360737cc6ca24f5bdc960.jpeg";
 let phone = "19912344321";
+// 线上环境 --------------------
 
 export default class Main extends React.Component {
 
@@ -49,6 +50,15 @@ export default class Main extends React.Component {
             window.alert("活动ID不能为空");
             location.reload();
         }
+
+        window.onresize = function () {
+            let height = (((window.innerWidth * 0.5) / 16) * 9).toFixed(3);
+            let videoWrapper = document.getElementById("mz-video-wrapper");
+            if (videoWrapper !== null && videoWrapper !== undefined) {
+                videoWrapper.style.height = height + 'px';
+                videoWrapper.style.width = '50%';
+            }
+        };
     }
 
     checkTicketPlayPermission = () => {
@@ -118,6 +128,29 @@ export default class Main extends React.Component {
 
         }).then((res) => {
             console.log("返回的播放信息：", res);
+
+            /* 播放信息
+            channel_id; // 频道ID
+            chat_uid; // 自己在聊天室里的id
+            cover; // 活动封面
+            status; // 直播状态 0:未开播 1:直播 2:回放 3:断流
+            live_type; // 直播类型 0:视频 1:语音
+            popular; // 活动pv
+            msg_config; // 消息监听配置
+            chat_config; // 聊天监听配置
+            like_num; // 用户点赞数量
+            live_style; // 直播样式 0:横屏 1:竖屏
+            unique_id;//第三方传递过来的唯一id
+            view_mode;// 观看权限 1:免费 2:vip 3:付费 4:密码  5:白名单观看 6:F码观看
+            ticket_id;//活动ID
+            user_status;// 用户状态 1:正常 2:被踢出 3:禁言
+            notice: {Object} // 公告内容
+            video: {Object} // 视频播放嫡长子
+            uv; // uv
+            webinar_onlines; // 进入频道的时候的总在线人数
+            right: [] // 活动配置
+            */
+
             _this.setState({
                 ticketInfo: res
             })
@@ -294,6 +327,9 @@ export default class Main extends React.Component {
                         case "*answerNewReplyMsg":
                             console.log("问答：我的提问有一条新的回复，目前未读个数为 ", res.data.count);
                             break;
+                        case "*answerNewMsg": //有一新的问题（包括自己发的问题）
+                            console.log("问答：收到一新问题, 我自己提出的问题一共有：", res.data.count);
+                            break;
                         default:
                             console.log("未处理的cmd命令： ", res.data.type);
                             break;
@@ -310,7 +346,7 @@ export default class Main extends React.Component {
             // mzsdk.chat.push("我先发一条消息");
             mzsdk.chat.init({
                 receiveMsg: (msg) => {
-                    console.log("收到一条消息:",msg)
+                    console.log("收到一条消息:", msg)
                     let { chatList } = _this.state;
                     chatList.push({
                         userName: msg.userName,
@@ -360,6 +396,20 @@ export default class Main extends React.Component {
             // selSelect.addEventListener('change', function () {
             //     mzsdk.player.changeRate(this.value);
             // });
+
+            //获取问答列表
+            var discussParam = {
+                ticketId: ticketId,//活动ID
+                isNewReply: 0,//是否查询有未读的回复， 0-不查询 1-查询
+                offset: 0,//偏移,当前已经返回的数据总个数
+                limit: 10//请求返回的列表个数
+            }
+            mzsdk.getDiscussList(discussParam).then(function (res) {
+                console.log("问答模块获取问题列表结果：", res);
+            }, function (error) {
+                console.log("问答模块获取问题列表结果失败：", error);
+            })
+
         }, (error) => {
             console.log("error:", error);
             window.alert(error.msg);
@@ -372,6 +422,21 @@ export default class Main extends React.Component {
             return;
         }
         mzsdk.chat.push(this.input.value);
+
+        var _this = this;
+        // 提交问题
+        var discussParam = {
+            ticketId: ticketId,//活动ID
+            content: _this.input.value,//提问的问题，不能为空
+            isAnonymous: '0'//是否匿名提问？ 0-否 1-是,必须字符串
+        }
+        console.log("提交问答的参数：", discussParam);
+        mzsdk.submitDiscussQuestion(discussParam).then(function (res) {
+            console.log("问答模块提交问题结果：", res);
+        }, function (error) {
+            console.log("问答模块提交问题结果失败：", error);
+        })
+
         this.input.value = "";
     }
 

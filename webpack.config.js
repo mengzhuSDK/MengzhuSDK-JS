@@ -15,7 +15,7 @@ const devServer = require("./config/devServer");
 
 // npm run dev的时候，publicPath = "/"
 // npm run build的时候，publicPath = "./"
-let publicPath = "./";
+let publicPath = "/";
 let currentEnv = process.env.NODE_ENV;
 let mode = "development";
 let devtool = 'cheap-module-source-map';
