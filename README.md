@@ -70,7 +70,7 @@ mzsdk.init({
             ticket_id;//活动ID
             user_status;// 用户状态 1:正常 2:被踢出 3:禁言
             notice: {Object} // 公告内容
-            video: {Object} // 视频播放嫡长子
+            video: {Object} // 视频播放地址
             uv; // uv
             webinar_onlines; // 进入频道的时候的总在线人数
             right: [] // 活动配置
