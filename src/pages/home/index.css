@@ -1,0 +1,36 @@
+.empty-note {
+    text-align: center;
+    height: 30px;
+    font-size: 18px;
+    padding-top: 40px;
+}
+
+.home-background {
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+}
+
+.home-background .home-image {
+    margin-top: 44px;
+}
+
+.home-background .home-input-ticket-id {
+    border-radius: 3px;
+    margin-top: 80px;
+    height: 40px;
+    width: 60%;
+}
+
+.home-background .empty-back {
+    border-radius: 3px;
+    font-size: 20px;
+    color: white;
+    background: coral;
+    margin-top: 80px;
+    text-align: center;
+    height: 40px;
+    padding-top: 5px;
+    width: 60%;
+    cursor: pointer;
+}

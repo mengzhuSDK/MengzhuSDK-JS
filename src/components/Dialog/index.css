@@ -1,0 +1,20 @@
+
+.ant-modal{
+    padding:0;
+}
+.ant-modal .ant-modal-content{
+    border-radius: 0;
+}
+.ant-modal .ant-modal-title{
+    font-weight: bold;
+    font-size: 18px;
+}
+.ant-modal .ant-modal-body{
+    padding:40px;
+}
+.video-download .ant-modal-body{
+    padding:40px 40px 72px 40px;
+}
+.ant-modal .ant-modal-body .btn-container{
+    text-align: center;
+}

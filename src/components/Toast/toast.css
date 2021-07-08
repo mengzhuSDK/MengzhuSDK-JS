@@ -1,0 +1,32 @@
+.toast-container{
+    width:100%;
+    position: fixed;
+    left: 0;
+    top:40px;
+    text-align: center;
+    z-index:999999
+}
+.toast-content-wrap{
+    height:0;
+    overflow-y: visible;
+}
+.toast-content{
+    display: inline-block;
+    max-width:500px;
+    min-width:200px;
+    padding:16px 20px;
+    margin:0 auto;
+    line-height: 22px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    box-sizing: border-box;
+    transition: all .3s;;
+    border-radius:4px;
+}
+.toast-content.success{
+    background: #50C814;
+}
+.toast-content.error{
+    background: #F82626;
+}

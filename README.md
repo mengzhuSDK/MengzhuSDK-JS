@@ -24,7 +24,7 @@ import 'utils/mzsdk.css';
 checkPlayPermission|[Object]|检查用户是否有该活动的观看权限(目前支持白名单和F码权限)，传入参数{ticketId:活动编号, uniqueId:"用户id", name:"用户昵称", avatar:"用户头像", phone:"用户手机号", permission:{ id: 授权编号, key: 授权密钥 }, isShowLog:"是否打印log，方便调试"}
 init|[Object]|初始化直播sdk，传入参数{ticketId:活动编号, uniqueId:"用户id", name:"用户昵称", avatar:"用户头像", phone:"用户手机号", permission:{ id: 授权编号, key: 授权密钥 }, isShowLog:"是否打印log，方便调试"}
 connect|-|sdk初始化完成后，调用此方法，连接到当前直播会话中，与其它用户互动。
-disconnect|-|断开连接，当用户退出时，调用此方法，结束直播会话。
+disconnect|-|断开连接，当用户退出时，调用此方法，结束直播会话，此方法会释放SDK内所有组件。
 getOnlines|[Object]|获取在线观众列表, 传入参数{ticketId:活动编号}
 getHostInfo|[Object]|获取主播信息, 传入参数{ticketId:活动编号}
 getWebinarToolsList|[Object]|获取活动的详细配置信息, 传入参数{ticketId:活动编号}
@@ -79,6 +79,9 @@ mzsdk.init({
     mzsdk.connect();
 
     //TODO:初始化完成后，在这里完成其它操作。
+
+    //断开链接 - 当用户退出时，调用此方法，结束直播会话，此方法会释放SDK内所有组件。
+    mzsdk.disconnect();
 });
 ```
 
@@ -88,7 +91,8 @@ mzsdk.init({
 --|--|--
 init|[Object]|初始化视频组件
 render|-|渲染播放器
-dispose|-|销毁播放器，生命周期销毁的时候记得销毁播放器
+dispose|-|销毁播放器
+setHideDefaultErrorDisplay|-|调用此方法后，会隐藏播放失败的错误页面
 
 ### init方法参数说明
 
@@ -139,7 +143,6 @@ onCMD|活动各种cmd事件，包括开始直播，禁言，被踢出，活动�
 mzsdk.init({
     //...
 }).then(() => {
-//创建链接
 //创建链接
     mzsdk.connect();
     //初始化播放器
@@ -416,7 +419,7 @@ mzsdk.init({
         });
     });
     //根据文件ID，获取文件信息
-    mzsdk.doc.getFileInfo(183).then(data => {
+    mzsdk.doc.getFileInfo(documentId).then(data => {
         console.log("获取文件信息：", data);
     });
     //其它操作...
@@ -458,4 +461,20 @@ mzsdk.init({
     case "*answerNewMsg": //有一新的问题（包括自己发的问题）
         console.log("问答：收到一新问题, 我自己提出的问题一共有：", res.data.count);
         break;
+```
+
+
+### 问答相关功能
+```javascript
+1.0.3版本更新内容：
+  1. 界面区分PC端和移动端。
+  2. 添加白名单、F码功能和UI模版。
+  3. 添加禁言个人、踢出个人功能和UI模版。
+  4. 完善播放器状态回调。
+  5. 优化统计观看时长的精准度。
+  6. 修复部分情况下播放组件不释放的bug。
+  7. 优化用户token的缓存机制。
+
+1.0.2版本更新内容：
+  1. 添加问答模块的API。
 ```

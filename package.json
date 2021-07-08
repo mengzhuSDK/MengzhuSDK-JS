@@ -1,6 +1,6 @@
 {
   "name": "demos",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "![npm version](https://img.shields.io/badge/npm-1.0.0-green.svg)",
   "main": "index.js",
   "homepage": "./",
@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "antd": "^4.16.5",
     "react": "^16.13.1",
     "react-dom": "^16.8.6",
     "react-hot-loader": "^4.8.2",

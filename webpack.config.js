@@ -96,6 +96,8 @@ let baseConfig = {
         alias: {
             pages: path.resolve(__dirname, "src/pages"),
             utils: path.resolve(__dirname, "src/utils"),
+            common: path.resolve(__dirname, "src/common"),
+            components: path.resolve(__dirname, "src/components"),
         },
         extensions: ['.js', '.json', '.jsx'],
         //resolve.modules 配置 Webpack 去哪些目录下寻找第三方模块，默认是只会去 node_modules 目录下寻找。

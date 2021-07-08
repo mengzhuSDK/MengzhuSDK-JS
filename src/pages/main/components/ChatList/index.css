@@ -1,12 +1,9 @@
 .chatlist-wrapper {
     width: 100%;
-    height: 350px;
-    max-height: 350px;
     overflow: hidden;
     overflow-y: auto;
-    padding: 0 10px;
-    margin: 10px 0;
     box-sizing: border-box;
+    height: 100%;
 }
 .msg-caption {
     list-style-type: none;
@@ -16,13 +13,15 @@
     color: #7A7A7A;
     line-height: 22px;
     float: left;
-    max-width: 100px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-bottom: 6px;
     font-size: 12px;
     padding-left: 1px;
+
+    margin-top: 8px;
+    margin-left: 8px;
 }
 .msg-caption .user-host {
     float: left;
@@ -35,6 +34,8 @@
     line-height: 22px;
     font-size: 12px;
     color: #7a7a7a;
+
+    margin-top: 8px;
 }
 .msg-caption .msg-content {
     color: #2B2B2B;
@@ -44,6 +45,5 @@
     padding: 8px 10px;
     border-radius: 3px;
     display: table;
-    max-width: 240px;
     word-break: break-all;
 }

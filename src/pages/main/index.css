@@ -1,6 +1,5 @@
 .main-wrapper {
     background-color: #F4F4F4;
-    min-width: 640px;
 }
 .main-top {
     display: flex;
@@ -8,16 +7,9 @@
 }
 .main-left {
     width: 50%;
+    position: relative;
 }
-.main-right {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-.main-bottom {
-    width: 100%;
-    min-height: 10px;
-}
+
 .main-chat-content {
     flex: 1;
     width: 100%;
@@ -43,4 +35,121 @@
     margin-left: 10px;
     border: 1px solid #b2b2b2;
     cursor: pointer;
+}
+
+.errorContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+
+    font-size: 25px;
+    color: orange;
+}
+
+.errorImage {
+    object-fit: cover;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    object-fit: cover;
+}
+
+.vjs-seeking .vjs-loading-spinner, .vjs-waiting .vjs-loading-spinner {
+    display: none !important;
+}
+
+/* h5布局 */
+.main-top-video {
+    width: 100%;
+    height: 4.22rem;
+    /* height: 100vh; */
+    position: relative;
+}
+
+.tab-menu-background {
+    display: flex;
+    height: 0.87rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #EFEFF4;
+}
+
+.tab-menu-background .tab-menu-item {
+    width: 50%;
+    height: 0.88rem;
+    text-align: center;
+    color: #7A7A7A;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 0.24rem;
+    position: relative;
+}
+
+.tab-menu-background .tab-menu-item.activity {
+    font-size: 0.32rem;
+    color: #FF5B29;
+}
+
+.tab-menu-background .tab-menu-item.activity:after {
+    display: block;
+    content: "";
+    width: 0.32rem;
+    height: 0.04rem;
+    background: #FF5B29;
+    border-radius: 1px;
+    position: absolute;
+    left: 50%;
+    margin-left: -0.16rem;
+    bottom: 0;
+}
+.tab-content-background {
+    margin-top: 0.0rem;
+}
+
+.tab-content-background .tab-content-item {
+    display: block;
+}
+
+.tab-content-background .tab-content-item.none {
+    display: none;
+}
+
+.mobile-main-chat-send-wrapper {
+    height: 0.79rem;
+    width: 100%;
+}
+.mobile-main-chat-send-cont {
+    display: inline-block;
+    width: 70%;
+    height: 0.59rem;
+    vertical-align: top;
+    margin-left: 0.2rem;
+    box-sizing: border-box;
+}
+.mobile-btn-send {
+    display: inline-block;
+    width: 20%;
+    height: 0.59rem;
+    line-height: 0.59rem;
+    text-align: center;
+    margin-left: 0.35rem;
+    border: 1px solid #b2b2b2;
+    cursor: pointer;
+}
+
+.main-wrapper .video-js .vjs-big-play-button {
+    height: 1.63332em !important;
+    width: 1.63332em !important;
+    border-radius: 0.81666em !important;
+    left:0; right:0; top:0; bottom:0 !important;
+    margin:auto !important;
 }

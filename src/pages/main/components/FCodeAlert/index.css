@@ -1,0 +1,50 @@
+.create-fCode-dialog .note {
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+}
+
+.create-fCode-dialog .tf {
+    margin-top: 40px;
+    width: 100%;
+    height: 44px;
+}
+
+.create-fCode-dialog .sure {
+    width: 100%;
+    background: coral;
+    border-radius: 4px;
+    height: 44px;
+    color: white;
+    font-size: 19px;
+    margin-top: 70px;
+    text-align: center;
+    padding-top: 7px;
+    margin-bottom: 80px;
+    cursor: pointer;
+}
+
+.create-fCode-dialog .mobile-note {
+    text-align: center;
+    width: 100%;
+    font-size: 0.3rem;
+}
+
+.create-fCode-dialog .mobile-tf {
+    margin-top: 0.6rem;
+    width: 100%;
+    height: 0.68rem;
+}
+
+.create-fCode-dialog .mobile-sure {
+    width: 100%;
+    background: coral;
+    border-radius: 0.08rem;
+    height: 0.68rem;
+    color: white;
+    font-size: 0.33rem;
+    margin-top: 0.8rem;
+    text-align: center;
+    padding-top: 0.07rem;
+    cursor: pointer;
+}
