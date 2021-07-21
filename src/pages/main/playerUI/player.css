@@ -1,0 +1,31 @@
+.errorContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    top: 0;
+
+    font-size: 0.5rem;
+    color: orange;
+}
+
+.errorImage {
+    position: absolute;
+    left: 0;
+    top: 0;
+
+    object-fit: contain;
+}
+
+
+.live-video-background .video-js .vjs-fullscreen-control {
+    display: none;
+}
+
+.live-video-background .video-js .vjs-picture-in-picture-control {
+    display: none;
+}

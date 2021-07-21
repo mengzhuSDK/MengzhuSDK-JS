@@ -1,6 +1,6 @@
 {
   "name": "demos",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "![npm version](https://img.shields.io/badge/npm-1.0.0-green.svg)",
   "main": "index.js",
   "homepage": "./",
@@ -18,7 +18,8 @@
     "react-hot-loader": "^4.8.2",
     "react-masonry-component": "^6.2.1",
     "react-router-dom": "^5.0.0",
-    "react-sticky": "^6.0.3"
+    "react-sticky": "^6.0.3",
+    "video.js": "^7.10.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.13",

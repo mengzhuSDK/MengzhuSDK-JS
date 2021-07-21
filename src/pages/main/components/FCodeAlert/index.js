@@ -6,6 +6,10 @@ import { Input } from 'antd';
 import { isMobile } from "common/common"
 import mzsdk from '../../../../utils/mzsdk'
 
+/**
+ * F码 - 输入F码弹窗
+ */
+
 export default class FCodeAlert extends React.Component {
     constructor(props){
         super(props);

@@ -1,0 +1,37 @@
+.main-top-pc {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.main-left-pc {
+    width: 861px;
+    height: 484px;
+    min-width: 861px;
+    min-height: 484px;
+    position: relative;
+}
+
+.main-chat-send-wrapper {
+    height: 100px;
+    width: 100%;
+    padding: 10px;
+    padding-bottom: 0px;
+}
+.main-chat-send-cont {
+    display: inline-block;
+    width: 70%;
+    height: 90px;
+    vertical-align: top;
+    box-sizing: border-box;
+}
+.btn-send {
+    display: inline-block;
+    width: 20%;
+    height: 90px;
+    line-height: 80px;
+    text-align: center;
+    margin-left: 10px;
+    border: 1px solid #b2b2b2;
+    cursor: pointer;
+}

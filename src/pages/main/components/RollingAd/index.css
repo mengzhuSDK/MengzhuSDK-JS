@@ -1,0 +1,40 @@
+.rolling-ad-background {
+    z-index: 9991;
+    max-height: 1.6rem;
+}
+
+.rolling-ad-background .rolling-ad-item {
+    overflow: hidden;
+    width: 100vw;
+    height: 1.6rem;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+}
+
+.rolling-ad-background .rolling-ad-item-image {
+    overflow: hidden;
+    width: 100vw;
+    height: 1.6rem;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
+    object-fit: cover;
+}
+
+.rolling-ad-background .rolling-ad-item .rolling-ad-item-text {
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.rolling-ad-background .ant-carousel .slick-dots-bottom {
+    bottom: -0.18rem;
+}

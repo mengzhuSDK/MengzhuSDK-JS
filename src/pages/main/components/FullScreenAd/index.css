@@ -1,0 +1,25 @@
+.full-screen-ad-background {
+    z-index: 9999;
+    position: fixed;
+    background: white;
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+}
+
+.full-screen-ad-background .full-screen-ad-item {
+    object-fit: cover;
+    width: 100vw;
+    height: 100vh;
+}
+
+.full-screen-ad-background .skip-button {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.5rem;
+    background: rgba(0, 0, 0, 0.7);
+    border-radius: 0.08rem;
+    padding: 0.08rem 0.18rem;
+    color: white;
+}

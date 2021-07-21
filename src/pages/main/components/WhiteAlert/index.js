@@ -3,6 +3,10 @@ import './index.css';
 import Dialog from 'components/Dialog';
 import { isMobile } from "common/common"
 
+/**
+ * 白名单 - 无权限观看组件
+ */
+
 export default class WhiteAlert extends React.Component {
     constructor(props){
         super(props);

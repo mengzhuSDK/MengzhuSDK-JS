@@ -31,6 +31,9 @@ getWebinarToolsList|[Object]|获取活动的详细配置信息, 传入参数{tic
 useFCode|[Object]|若活动需要F码权限观看，调用使用F码, 传入参数{ticketId:活动编号, fCode:F码}
 getDiscussList|[Object]|获取该活动下所有的问答列表，传入参数{ticketId:活动编号, isNewReplay:是否查询最新未读回复 0:否 1:是, offset:偏移,当前已经获取的数据总个数, limit:请求的个数}
 submitDiscussQuestion|[Object]|提交问答问题，传入参数{ticketId:活动编号, content:问题, isAnonymous:是否匿名提问，字符串 0否 1是}
+getVideoScreenAdvert|[Object]|获取启动广告(暖场图), 传入参数{ticketId:活动编号}
+getRollingAdvert|[Object]|获取滚动广告(支持文字和图片), 传入参数{ticketId:活动编号}
+getVideoAdvert|[Object]|获取片头视频广告, 传入参数{ticketId:活动编号}
 
 ### 示例
 ```javascript
@@ -92,13 +95,13 @@ mzsdk.init({
 init|[Object]|初始化视频组件
 render|-|渲染播放器
 dispose|-|销毁播放器
-setHideDefaultErrorDisplay|-|调用此方法后，会隐藏播放失败的错误页面
+setHideDefaultErrorDisplay|-|调用此方法后，会隐藏播放失败的错误页面，方便用户自定义
 
 ### init方法参数说明
 
 名称|类型|描述
 --|--|--
-domId|String|播放器父元素id，最好用div等块级元素。
+domId|String|播放器绑定的domId，最好用div等块级元素。
 
 ### 视频组件的播放相关事件
 
@@ -125,6 +128,8 @@ onRateChange|播放速率改变
 onTimeUpdate|播放时长改变
 onVolumeChange|音量改变
 onStalled|网速异常
+onEnterPictureInPicture|进入画中画
+onLeavePictureInPicture|退出画中画
 
 
 ### 视频组件的活动相关事件
@@ -171,7 +176,11 @@ mzsdk.init({
             console.log("视频总时长发生改变", e);
         },
         onFullScreenChange: function (e) {
-            console.log("全屏改变", e);
+            if (e.target.player.isFullscreen_ == true) {
+                console.log("进入全屏");
+            } else {
+                console.log("退出全屏，如果需要这里设置自动播放");
+            }
         },
         onLoadedAllData: function (e) {
             console.log("已加载完毕所有的媒体数据", e);
@@ -203,7 +212,11 @@ mzsdk.init({
                     console.log("视频加载错误原因为：空资源")
                 }
             } else {
-                console.log("视频加载错误", e);
+                console.log("视频异常中断：", e.target.player.error_.message);
+                _this.setState({
+                    errorContent: '视频异常中断',
+                    isShowErrorDisplay: true,
+                })
             }
         },
         onSeeking: function (e) {
@@ -224,14 +237,29 @@ mzsdk.init({
         onStalled: function (e) {
             console.log("网速异常", e);
         },
+        onEnterPictureInPicture: function (e) {
+            console.log("进入画中画");
+        },
+        onLeavePictureInPicture: function (e) {
+            console.log("离开画中画， 如果需要这里设置自动播放");
+            if (document.querySelector("video").paused) {
+                document.querySelector("video").play();
+            }
+        },
 
         // 活动事件
         onOver: function () {
-            console.log("主播离开");
-            window.alert('主播暂时离开')
+            console.log("主播暂时离开");
+            _this.setState({
+                errorContent: '断流中',
+                isShowErrorDisplay: true,
+            })
         },
         onLiveEnd: function () {
             console.log("结束直播");
+            setTimeout(() => {//1秒后刷新本页面
+                location.reload();
+            }, 1000);
         },
         onOnline: function (msg) {
             console.log("上线了一个用户:", msg.data);
@@ -252,15 +280,27 @@ mzsdk.init({
                 case "*publishStart":
                     console.log("*确认：开始直播");
                     localStorage.setItem("ticketId", ticketId)
-                    setTimeout(() => {//3秒后刷新本页面
+                    setTimeout(() => {//15秒后刷新本页面
                         location.reload();
-                    }, 3000);
+                    }, 15000);
                     break;
                 case "*disablechat":
-                    console.log("*确认：禁言")
+                    console.log("*确认：禁言", res.data.user_id)
+                    if (res.data.user_id == _this.state.ticketInfo.chat_uid) {
+                        Toast.show('您已被禁言', 'error')
+                        _this.setState({
+                            isBannedMeTalk: true
+                        })
+                    }
                     break;
                 case "*permitchat":
-                    console.log("*确认：解禁")
+                    console.log("*确认：解禁", res.data.user_id)
+                    if (res.data.user_id == _this.state.ticketInfo.chat_uid) {
+                        Toast.show('您已解除禁言', 'success')
+                        _this.setState({
+                            isBannedMeTalk: false
+                        })
+                    }
                     break;
                 case "*webinarViewConfigUpdate": //活动配置更改
                     for (const aObject in res.data.webinar_content) {
@@ -325,9 +365,15 @@ mzsdk.init({
             }
 
         }
+
+    //隐藏默认的错误页面
+    mzsdk.player.setHideDefaultErrorDisplay();
     //渲染播放器
     mzsdk.player.render();
     //其它操作...
+
+    //获取主播信息
+    _this.getHostInfo();
 });
 ```
 
@@ -426,7 +472,15 @@ mzsdk.init({
 });
 ```
 
-### 问答相关功能
+## 问答相关功能
+
+方法名称|参数|描述
+--|--|--
+getDiscussList|[Object]|获取问答列表，传入参数{ticketId:活动编号, isNewReply:是否查询有未读的回复, 0-不查询 1-查询, offset:偏移,当前已经返回的数据总个数, limit:请求的个数}
+submitDiscussQuestion|[Object]|提交文旦问题，传入参数{ticketId:活动编号, content:提问的问题, isAnonymous:是否匿名提问,字符串类型, 0-否 1-是}
+
+### 示例
+
 ```javascript
     //获取问答列表
     var discussParam = {
@@ -454,7 +508,7 @@ mzsdk.init({
         console.log("问答模块提交问题结果失败：", error);
     })
 
-    //问答事件的监听 - 在initSDK里的 onCMD 回调里进行监听，具体可参考demo
+    //问答事件的监听 - 在 mzsdk.player.init 里的 onCMD 回调里进行监听，具体可参考demo
     case "*answerNewReplyMsg":
         console.log("问答：我的提问有一条新的回复，目前未读个数为 ", res.data.count);
         break;
@@ -466,7 +520,15 @@ mzsdk.init({
 
 ### 问答相关功能
 ```javascript
-1.0.3版本更新内容：
+1.0.4 - 版本更新内容：
+  1. 添加竖屏播放器，根据视频方向自动选择横竖屏播放器。
+  2. 添加防录屏。
+  3. 添加片头视频功能。
+  4. 添加滚动广告功能。
+  5. 添加启动广告功能。
+  6. 添加播放器各种错误状态的UI。
+
+1.0.3 - 版本更新内容：
   1. 界面区分PC端和移动端。
   2. 添加白名单、F码功能和UI模版。
   3. 添加禁言个人、踢出个人功能和UI模版。
@@ -475,6 +537,6 @@ mzsdk.init({
   6. 修复部分情况下播放组件不释放的bug。
   7. 优化用户token的缓存机制。
 
-1.0.2版本更新内容：
+1.0.2 - 版本更新内容：
   1. 添加问答模块的API。
 ```

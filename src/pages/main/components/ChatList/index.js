@@ -2,6 +2,10 @@ import React from 'react';
 import './index.css'
 import { isMobile } from "common/common"
 
+/**
+ * pc和二分屏聊天列表
+ */
+
 export default class ChatList extends React.Component {
 
     componentDidMount() {
@@ -20,15 +24,15 @@ export default class ChatList extends React.Component {
 
     render() {
         let { list } = this.props;
-        let window_height = window.innerHeight + 'px';
-        return (<ul className="chatlist-wrapper" style={{height: isMobile() ? "calc("+window_height+" - 4.22rem - 0.88rem - 0.79rem)" : '351px', padding: isMobile() ? '0 0.2rem' : '0 10px', margin: isMobile() ? '0' : '10px 0'}}>
+        let _isMobile = isMobile();
+        return (<ul className="chatlist-wrapper" style={{height: this.props.selfHeight, padding: _isMobile ? '0 0.2rem' : '0 10px', margin: _isMobile ? '0' : '10px 0'}}>
             {
                 list.map((item, index) => {
                     return (<li className="msg-caption" key={`chatlist-item-${index}`}>
                     <img className="user-host" src={item.avatar ? item.avatar : "//s1.zmengzhu.com/web/wap/img/default-avatar.jpg"} />
-                    <h3 className="user-name" style={{maxWidth: isMobile() ? '2.8rem' : '250px'}}>{item.userName}</h3>
+                    <h3 className="user-name" style={{maxWidth: _isMobile ? '2.8rem' : '250px'}}>{item.userName}</h3>
                     <p className="time">{item.time}</p>
-                    <p className="msg-content isSelf">{item.text}</p>
+                    <p className="msg-content isSelf">{item.text || '其他未解析消息'}</p>
                 </li>)
                 })
             }

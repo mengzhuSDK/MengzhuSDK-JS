@@ -3,6 +3,10 @@ import './index.css';
 import Dialog from 'components/Dialog';
 import { isMobile } from "common/common"
 
+/**
+ * 被主播踢出的弹窗
+ */
+
 export default class GetKickoutAlert extends React.Component {
     constructor(props){
         super(props);

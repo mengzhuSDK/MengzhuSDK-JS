@@ -1,0 +1,52 @@
+.pre-video-background {
+    background: olivedrab;
+    z-index: 9997;
+    position: fixed;
+    left: 0; top: 0;
+}
+
+.pre-video-background .video-js {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+
+.pre-video-background .video-js .vjs-fullscreen-control {
+    display: none;
+}
+
+.pre-video-background .video-js .vjs-picture-in-picture-control {
+    display: none;
+}
+
+.pre-video-background .time-skin-background {
+    position: absolute;
+    z-index: 9997;
+    right: 0.4rem;
+    top: 0.4rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    padding: 0.1rem 0.12rem;
+    border-radius: 0.08rem;
+}
+
+.pre-video-background .time-skin-background .time-count {
+    display: inline-block;
+    min-width: 0.54rem;
+    text-align: center;
+    color: #FF5B29;
+    line-height: 0.24rem;
+}
+
+.pre-video-background .time-skin-background .skip-button {
+    display: inline-block;
+    cursor: pointer;
+    border-left: 0.02rem solid #A1A1A1;
+    font-size: 0.24rem;
+    line-height: 0.24rem;
+    padding-left: 0.1rem;
+    margin-left: 0.1rem;
+}

@@ -1,0 +1,86 @@
+.main-top-super {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.main-top-video-super {
+    width: 100%;
+    height: 4.22rem;
+    /* height: 100vh; */
+    position: fixed;
+    z-index: 9995;
+}
+
+.tab-menu-background {
+    display: flex;
+    height: 0.87rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0.02rem solid #EFEFF4;
+}
+
+.tab-menu-background .tab-menu-item {
+    width: 50%;
+    height: 0.88rem;
+    text-align: center;
+    color: #7A7A7A;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    font-size: 0.24rem;
+    position: relative;
+}
+
+.tab-menu-background .tab-menu-item.activity {
+    font-size: 0.32rem;
+    color: #FF5B29;
+}
+
+.tab-menu-background .tab-menu-item.activity:after {
+    display: block;
+    content: "";
+    width: 0.32rem;
+    height: 0.04rem;
+    background: #FF5B29;
+    border-radius: 0.02rem;
+    position: absolute;
+    left: 50%;
+    margin-left: -0.16rem;
+    bottom: 0;
+}
+.tab-content-background {
+    margin-top: 0.0rem;
+}
+
+.tab-content-background .tab-content-item {
+    display: block;
+}
+
+.tab-content-background .tab-content-item.none {
+    display: none;
+}
+
+.mobile-main-chat-send-wrapper {
+    height: 0.79rem;
+    width: 100%;
+}
+.mobile-main-chat-send-cont {
+    display: inline-block;
+    width: 70%;
+    height: 0.59rem;
+    vertical-align: top;
+    margin-left: 0.2rem;
+    box-sizing: border-box;
+}
+.mobile-btn-send {
+    display: inline-block;
+    width: 20%;
+    height: 0.59rem;
+    line-height: 0.59rem;
+    text-align: center;
+    margin-left: 0.35rem;
+    border: 0.02rem solid #b2b2b2;
+    cursor: pointer;
+}
